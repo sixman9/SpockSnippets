@@ -36,6 +36,10 @@ public class Element {
         return name.equals(((Element) obj).getName());
     }
 
+    public int hashCode() {
+        return name.hashCode();
+    }
+
     public String toString() {
         return name;
     }
