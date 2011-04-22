@@ -31,7 +31,7 @@ public class Element {
     }
 
     public boolean equals(Object obj) {
-        return true;
+        return name.equals(((Element) obj).getName());
     }
 
     public String toString() {
