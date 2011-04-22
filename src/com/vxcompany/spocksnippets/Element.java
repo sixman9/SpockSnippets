@@ -20,11 +20,13 @@ package com.vxcompany.spocksnippets;
  */
 public class Element {
 
-    public Element(String name) {
+    private String name;
 
+    public Element(String name) {
+         this.name = name;
     }
 
     public String getName() {
-        return null;
+        return name;
     }
 }
