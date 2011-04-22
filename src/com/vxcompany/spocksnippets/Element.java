@@ -32,6 +32,7 @@ public class Element {
     }
 
     public boolean equals(Object obj) {
+        if (!(obj instanceof Element)) return false;
         return name.equals(((Element) obj).getName());
     }
 
