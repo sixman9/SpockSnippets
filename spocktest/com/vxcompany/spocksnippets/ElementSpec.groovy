@@ -36,4 +36,10 @@ class ElementSpec extends Specification {
         expect:
             new Element("name of element").toString() == "name of element"
     }
+
+    def "two elements with same name must equal"() {
+        expect:
+            new Element("same name") == new Element("same name")
+    }
+
 }

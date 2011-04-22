@@ -33,4 +33,9 @@ public class ElementTest {
     public void element_toString_equalToName() {
         assertEquals("toString must should element name", "name of element", new Element("name of element").toString());
     }
+
+    @Test
+    public void element_equalsSameName_true() {
+        assertEquals("two elements with same name must be equal", new Element("same name"), new Element("same name"));
+    }
 }
