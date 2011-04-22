@@ -42,9 +42,15 @@ public class ElementTest {
         assertEquals("toString must should element name", "name of element", new Element("name of element").toString());
     }
 
+    // helper method, where do we put the assertion description text?
+    private void areEqual(Object object, Object otherObject) {
+        assertEquals(object, otherObject);
+        assertEquals(object.hashCode(), otherObject.hashCode());
+    }
+
     @Test
     public void element_equalsSameName_true() {
-        assertEquals("two elements with same name must be equal", new Element("same name"), new Element("same name"));
+        areEqual(new Element("same name"), new Element("same name"));
     }
 
     @Test

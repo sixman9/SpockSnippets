@@ -39,15 +39,21 @@ class ElementSpec extends Specification {
             thrown(NullPointerException)
     }
 
-
     def "on element, toString should return name"() {
         expect:
             new Element("name of element").toString() == "name of element"
     }
 
+    // example of a helper method
+    // adding the asserts is optional, but generates much more readable output on failure
+    void areEqual(object, otherObject) {
+        assert object.equals(otherObject)
+        assert object.hashCode() == otherObject.hashCode()
+    }
+
     def "two elements with same name must equal"() {
         expect:
-            new Element("same name") == new Element("same name")
+            areEqual(new Element("same name"), new Element("same name"))
     }
 
     def "two elements with different name must not equal"() {
