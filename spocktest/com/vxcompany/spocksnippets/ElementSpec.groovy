@@ -42,4 +42,9 @@ class ElementSpec extends Specification {
             new Element("same name") == new Element("same name")
     }
 
+    def "two elements with different name must not equal"() {
+        expect:
+            new Element("name") != new Element("different name")
+    }
+
 }
