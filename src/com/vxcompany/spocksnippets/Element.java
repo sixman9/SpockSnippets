@@ -23,6 +23,7 @@ public class Element {
     private String name;
 
     public Element(String name) {
+         if (name == null) throw new NullPointerException();
          this.name = name;
     }
 
