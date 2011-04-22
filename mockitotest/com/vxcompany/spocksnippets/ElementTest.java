@@ -16,7 +16,10 @@ package com.vxcompany.spocksnippets;
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
 import org.junit.Test;
+
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.*;
+import static org.hamcrest.core.IsEqual.*;
 
 /**
  * @author Michel Vollebregt
@@ -37,5 +40,10 @@ public class ElementTest {
     @Test
     public void element_equalsSameName_true() {
         assertEquals("two elements with same name must be equal", new Element("same name"), new Element("same name"));
+    }
+
+    @Test
+    public void element_equalsDifferentName_false() {
+        assertThat("two elements with different name must not equal", new Element("name"), not(equalTo(new Element("different name"))));
     }
 }
