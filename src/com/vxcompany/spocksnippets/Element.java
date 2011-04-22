@@ -30,6 +30,10 @@ public class Element {
         return name;
     }
 
+    public boolean equals(Object obj) {
+        return true;
+    }
+
     public String toString() {
         return name;
     }
