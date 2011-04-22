@@ -34,7 +34,7 @@ class ElementSpec extends Specification {
 
     def "creating new element with name null should throw exception"() {
         when:
-            def element = new Element(null)
+            new Element(null)
         then:
             thrown(NullPointerException)
     }
