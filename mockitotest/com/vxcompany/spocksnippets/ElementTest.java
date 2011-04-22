@@ -32,6 +32,11 @@ public class ElementTest {
         assertEquals("Element name should equal name set in constructor", "name of element", element.getName());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void newElementWithNameNull_exception() {
+        new Element(null);
+    }
+
     @Test
     public void element_toString_equalToName() {
         assertEquals("toString must should element name", "name of element", new Element("name of element").toString());

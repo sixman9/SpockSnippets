@@ -32,6 +32,14 @@ class ElementSpec extends Specification {
     }
 
 
+    def "creating new element with name null should throw exception"() {
+        when:
+            def element = new Element(null)
+        then:
+            thrown(NullPointerException)
+    }
+
+
     def "on element, toString should return name"() {
         expect:
             new Element("name of element").toString() == "name of element"
