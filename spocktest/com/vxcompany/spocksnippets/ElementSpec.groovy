@@ -30,4 +30,10 @@ class ElementSpec extends Specification {
         then:
             element.getName() == "name of element"
     }
+
+
+    def "on element, toString should return name"() {
+        expect:
+            new Element("name of element").toString() == "name of element"
+    }
 }

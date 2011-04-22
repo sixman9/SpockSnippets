@@ -28,4 +28,9 @@ public class ElementTest {
         Element element = new Element("name of element");
         assertEquals("Element name should equal name set in constructor", "name of element", element.getName());
     }
+
+    @Test
+    public void element_toString_equalToName() {
+        assertEquals("toString must should element name", "name of element", new Element("name of element").toString());
+    }
 }
