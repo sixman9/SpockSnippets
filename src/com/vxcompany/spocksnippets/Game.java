@@ -15,6 +15,7 @@ package com.vxcompany.spocksnippets;
 // You should have received a copy of the GNU General Public License
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,10 +23,13 @@ import java.util.Set;
  */
 public class Game {
 
+    private Set<Element> elements;
+
     public Game(ElementsRepository repo) {
+        elements = repo.listBasicElements();
     }
 
     public Set<Element> availableElements() {
-        return null;
+        return elements;
     }
 }
