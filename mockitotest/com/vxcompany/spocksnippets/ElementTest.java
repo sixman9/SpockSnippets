@@ -51,4 +51,9 @@ public class ElementTest {
     public void element_equalsDifferentName_false() {
         assertThat("two elements with different name must not equal", new Element("name"), not(equalTo(new Element("different name"))));
     }
+
+    @Test
+    public void element_equalsOtherObject_false() {
+        assertFalse("element should not equal other object", new Element("name of element").equals(new Object()));
+    }
 }

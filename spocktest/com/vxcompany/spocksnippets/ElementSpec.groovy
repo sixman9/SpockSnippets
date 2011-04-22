@@ -55,4 +55,9 @@ class ElementSpec extends Specification {
             new Element("name") != new Element("different name")
     }
 
+    def "element should not equal other object"() {
+        expect:
+            new Element("name of element") != new Object()
+    }
+
 }
