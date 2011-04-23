@@ -32,4 +32,12 @@ public class Game {
     public Set<Element> availableElements() {
         return elements;
     }
+
+    public void setAvailableElements(Set<Element> elements) {
+        this.elements = elements;
+    }
+
+    public void combine(Element first, Element second) {
+
+    }
 }

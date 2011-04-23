@@ -35,4 +35,22 @@ class GameSpec extends Specification{
             // note that == verifies equality (a.equals(b)) and NOT identity (a == b)
             game.availableElements() == BASIC_ELEMENTS;
     }
+
+    def "on game with elements, combining two elements makes another element available"() {
+        setup:
+            def repo = Mock(ElementsRepository)
+            def earth = new Element("earth");
+            def fire = new Element("fire");
+            def lava = new Element("lava");
+        when:
+            def game = new Game(repo)
+            game.availableElements = [earth, fire]
+        and:
+            repo.getCombinedElement(earth, fire) >> lava
+        and:
+            game.combine(earth, fire)
+        then:
+            game.availableElements() == [earth, fire, lava] as Set
+    }
+
 }

@@ -46,4 +46,30 @@ public class GameTest {
         // assert
         assertEquals("new game should contain basic elements returned by repository", BASIC_ELEMENTS, availableElements);
     }
+
+    @Test
+    public void gameWithElements_combineTwoElements_newElementIsAdded() {
+
+        // setup
+        ElementsRepository repo = mock(ElementsRepository.class);
+        Element earth = new Element("earth");
+        Element fire = new Element("fire");
+        Element lava = new Element("lava");
+
+        Game game = new Game(repo);
+        Set<Element> elements = new HashSet<Element>();
+        Collections.addAll(elements, earth, fire);
+        game.setAvailableElements(elements);
+        when(repo.getCombinedElement(earth, fire)).thenReturn(lava);
+
+        // call function
+        game.combine(earth, fire);
+
+        // assert
+        Set<Element> resultSet = new HashSet<Element>();
+        Collections.addAll(resultSet, earth, fire, lava);
+        assertEquals("combining two elements should make third element available", resultSet, game.availableElements());
+
+
+    }
 }

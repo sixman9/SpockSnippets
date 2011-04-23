@@ -26,4 +26,7 @@ public class ElementsRepository {
         return null;
     }
 
+    public Element getCombinedElement(Element first, Element second) {
+        return null;
+    }
 }
