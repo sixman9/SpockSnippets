@@ -29,12 +29,17 @@ import static org.mockito.Mockito.*;
  */
 public class GameTest {
 
+    private <T> Set<T> createSet(T... elements) {
+        Set<T> set = new HashSet<T>();
+        Collections.addAll(set, elements);
+        return set;
+    }
+
     @Test
     public void newGame_availableElements_equalToBasicElementsInRepo() {
 
         // setup
-        Set<Element> BASIC_ELEMENTS = new HashSet<Element>();
-        Collections.addAll(BASIC_ELEMENTS, new Element("first basic element"), new Element("second basic element"));
+        Set<Element> BASIC_ELEMENTS = createSet(new Element("first basic element"), new Element("second basic element"));
 
         ElementsRepository repo = mock(ElementsRepository.class);
         when(repo.listBasicElements()).thenReturn(BASIC_ELEMENTS);
@@ -57,19 +62,14 @@ public class GameTest {
         Element lava = new Element("lava");
 
         Game game = new Game(repo);
-        Set<Element> elements = new HashSet<Element>();
-        Collections.addAll(elements, earth, fire);
-        game.setAvailableElements(elements);
+        game.setAvailableElements(createSet(earth, fire));
         when(repo.getCombinedElement(earth, fire)).thenReturn(lava);
 
         // call function
         game.combine(earth, fire);
 
         // assert
-        Set<Element> resultSet = new HashSet<Element>();
-        Collections.addAll(resultSet, earth, fire, lava);
+        Set<Element> resultSet = createSet(earth, fire, lava);
         assertEquals("combining two elements should make third element available", resultSet, game.availableElements());
-
-
     }
 }
