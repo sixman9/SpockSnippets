@@ -53,4 +53,21 @@ class GameSpec extends Specification{
             game.availableElements() == [earth, fire, lava] as Set
     }
 
+    def "on game with elements, when combining two non-reacting elements then available elements are unchanged"() {
+        setup:
+            def repo = Mock(ElementsRepository)
+            def earth = new Element("earth")
+            def fire = new Element("fire")
+            def lava = new Element("lava")
+        when:
+            def game = new Game(repo)
+            game.availableElements = [earth, fire, lava]
+        and:
+            repo.getCombinedElement(lava, fire) >> null
+        and:
+            game.combine(lava, fire)
+        then:
+            game.availableElements() == [earth, fire, lava] as Set
+
+    }
 }

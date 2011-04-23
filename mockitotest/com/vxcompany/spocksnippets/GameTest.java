@@ -72,4 +72,25 @@ public class GameTest {
         Set<Element> resultSet = createSet(earth, fire, lava);
         assertEquals("combining two elements should make third element available", resultSet, game.availableElements());
     }
+
+    @Test
+    public void gameWithElements_combineNonReactingElements_availableElementsUnchanged() {
+
+        // setup
+        ElementsRepository repo = mock(ElementsRepository.class);
+        Element earth = new Element("earth");
+        Element fire = new Element("fire");
+        Element lava = new Element("lava");
+
+        Game game = new Game(repo);
+        game.setAvailableElements(createSet(earth, fire, lava));
+        when(repo.getCombinedElement(lava, fire)).thenReturn(null);
+
+        // call function
+        game.combine(lava, fire);
+
+        // assert
+        Set<Element> resultSet = createSet(earth, fire, lava);
+        assertEquals("if combining two non-reacting elements, then available elements are unchanged", resultSet, game.availableElements());
+    }
 }
