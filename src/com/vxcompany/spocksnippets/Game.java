@@ -40,6 +40,9 @@ public class Game {
     }
 
     public void combine(Element first, Element second) {
-        elements.add(repository.getCombinedElement(first, second));
+        Element foundElement = repository.getCombinedElement(first, second);
+        if (foundElement != null) {
+            elements.add(repository.getCombinedElement(first, second));
+        }
     }
 }
