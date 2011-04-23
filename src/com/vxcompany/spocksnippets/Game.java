@@ -23,10 +23,12 @@ import java.util.Set;
  */
 public class Game {
 
+    private ElementsRepository repository;
     private Set<Element> elements;
 
     public Game(ElementsRepository repo) {
-        elements = repo.listBasicElements();
+        this.repository = repo;
+        elements = repository.listBasicElements();
     }
 
     public Set<Element> availableElements() {
@@ -38,6 +40,6 @@ public class Game {
     }
 
     public void combine(Element first, Element second) {
-
+        elements.add(repository.getCombinedElement(first, second));
     }
 }
