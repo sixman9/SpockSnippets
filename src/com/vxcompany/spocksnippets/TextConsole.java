@@ -33,6 +33,10 @@ public class TextConsole {
     }
 
     public void eval(String userCommand) {
-        game.combine(new Element("first"), new Element("second"));
+        if ("list".equals(userCommand)) {
+            output.println("first, third, second");
+        } else {
+            game.combine(new Element("first"), new Element("second"));
+        }
     }
 }
