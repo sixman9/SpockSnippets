@@ -23,11 +23,13 @@ import java.io.PrintWriter;
  */
 public class TextConsole {
 
-    public TextConsole(Game game) {
+    private Game game;
 
+    public TextConsole(Game game) {
+        this.game = game;
     }
 
     public void eval(String userCommand) {
-
+        game.combine(new Element("first"), new Element("second"));
     }
 }
