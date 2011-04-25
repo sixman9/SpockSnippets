@@ -34,9 +34,14 @@ public class TextConsole {
 
     public void eval(String userCommand) {
         if ("list".equals(userCommand)) {
-            output.println("first, third, second");
+            output.println(game.availableElements().toString());
         } else {
-            game.combine(new Element("first"), new Element("second"));
+            String[] words = userCommand.split(" ");
+            Element first = new Element(words[1]);
+            Element second = new Element(words[3]);
+            if (game.availableElements().contains(first) && game.availableElements().contains(second)) {
+                game.combine(new Element(words[1]), new Element(words[3]));
+            }
         }
     }
 }
