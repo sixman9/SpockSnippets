@@ -30,19 +30,8 @@ public class AbstractGameTest {
 
     protected ElementsRepository repo;
 
-    protected static Element earth = new Element("earth");
-    protected static Element fire = new Element("fire");
-    protected static Element lava = new Element("lava");
-
     @Before
     public void setUp() {
         repo = mock(ElementsRepository.class);
     }
-
-    protected static <T> Set<T> createSet(T... elements) {
-        Set<T> set = new HashSet<T>();
-        Collections.addAll(set, elements);
-        return set;
-    }
-
 }

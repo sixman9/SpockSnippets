@@ -15,36 +15,22 @@ package com.vxcompany.spocksnippets;
 // You should have received a copy of the GNU General Public License
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.vxcompany.spocksnippets.TestUtil.*;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 /**
  * @author Michel Vollebregt
  */
-public class TextConsoleTest {
+public class TestUtil {
 
-    private TextConsole console;
-    private Game game;
+    public static final Element earth = new Element("earth");
+    public static final Element fire = new Element("fire");
+    public static final Element lava = new Element("lava");
 
-    @Before
-    public void setUp() {
-        game = mock(Game.class);
-        console = new TextConsole(game);
-    }
-
-    @Test
-    public void textConsole_commandForCombiningTwoAvailableElements_callGameCombine() {
-        game.setAvailableElements(createSet(new Element("first"), new Element("second")));
-        console.eval("combine first with second");
-        verify(game).combine(new Element("first"), new Element("second"));
+    public static <T> Set<T> createSet(T... elements) {
+        Set<T> set = new HashSet<T>();
+        Collections.addAll(set, elements);
+        return set;
     }
 }

@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
-import static com.vxcompany.spocksnippets.GameTest.createSet;
+import static com.vxcompany.spocksnippets.TestUtil.*;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
