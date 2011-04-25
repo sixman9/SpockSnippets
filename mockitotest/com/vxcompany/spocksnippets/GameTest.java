@@ -93,4 +93,16 @@ public class GameTest {
         Set<Element> resultSet = createSet(earth, fire, lava);
         assertEquals("if combining two non-reacting elements, then available elements are unchanged", resultSet, game.availableElements());
     }
+
+    @Test(expected = Exception.class)
+    public void game_combineUnavailableElement_availableElementsUnchangedAndExceptionThrown() {
+        Game game = new Game(repo);
+        game.setAvailableElements(createSet(earth));
+        when(repo.getCombinedElement(earth,fire)).thenReturn(lava);
+        // call function
+        game.combine(earth, fire);
+        //assert
+        assertEquals("if combining an unavailable element, then available elements are unchanged", createSet(earth), game.availableElements());
+
+    }
 }

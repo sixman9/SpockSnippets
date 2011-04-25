@@ -67,6 +67,18 @@ class GameSpec extends Specification {
             game.combine(lava, fire)
         then:
             game.availableElements() == [earth, fire, lava] as Set
+    }
 
+    def "on game, when combining unavailable element then available elements are unchanged and exception is thrown"() {
+        when:
+            def game = new Game(repo)
+            game.availableElements = [earth]
+        and:
+            repo.getCombinedElement(earth, fire) >> lava
+        and:
+            game.combine(earth, fire)
+        then:
+            game.availableElements() == [earth] as Set
+            thrown(Exception)
     }
 }
