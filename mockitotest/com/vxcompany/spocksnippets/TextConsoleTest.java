@@ -50,21 +50,21 @@ public class TextConsoleTest {
 
     @Test
     public void textConsole_commandForCombiningTwoAvailableElements_callGameCombine() {
-        game.setAvailableElements(createSet(new Element("first"), new Element("second")));
+        when(game.availableElements()).thenReturn(createSet(new Element("first"), new Element("second")));
         console.eval("combine first with second");
         verify(game).combine(new Element("first"), new Element("second"));
     }
 
     @Test
     public void textConsole_commandForCombiningUnavailableElement_doNotCallGameCombine() {
-        game.setAvailableElements(createSet(new Element("available")));
+        when(game.availableElements()).thenReturn(createSet(new Element("available")));
         console.eval("combine available with unavailable");
         verify(game, never()).combine(any(Element.class), any(Element.class));
     }
 
     @Test
     public void textConsole_listCommand_printAvailableElements() {
-        game.setAvailableElements(createSet(new Element("first"), new Element("second"), new Element("third")));
+        when(game.availableElements()).thenReturn(createSet(new Element("first"), new Element("second"), new Element("third")));
         console.eval("list");
         // for easier test cases we could use argument matchers, but because we have to check
         // three boolean expressions on the argument, we have to use the more complicated ArgumentCaptor
