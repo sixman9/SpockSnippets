@@ -40,6 +40,9 @@ public class Game {
     }
 
     public void combine(Element first, Element second) {
+        if (!elements.contains(first) || !elements.contains(second)) {
+            throw new IllegalStateException("element is not available");
+        }
         Element foundElement = repository.getCombinedElement(first, second);
         if (foundElement != null) {
             elements.add(repository.getCombinedElement(first, second));
