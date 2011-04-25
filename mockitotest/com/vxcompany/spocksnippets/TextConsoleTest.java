@@ -30,11 +30,7 @@ import java.util.Set;
 import static com.vxcompany.spocksnippets.TestUtil.*;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.AdditionalMatchers.and;
-import static org.mockito.AdditionalMatchers.find;
-import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Michel Vollebregt
@@ -57,6 +53,13 @@ public class TextConsoleTest {
         game.setAvailableElements(createSet(new Element("first"), new Element("second")));
         console.eval("combine first with second");
         verify(game).combine(new Element("first"), new Element("second"));
+    }
+
+    @Test
+    public void textConsole_commandForCombiningUnavailableElement_doNotCallGameCombine() {
+        game.setAvailableElements(createSet(new Element("available")));
+        console.eval("combine available with unavailable");
+        verify(game, never()).combine(any(Element.class), any(Element.class));
     }
 
     @Test

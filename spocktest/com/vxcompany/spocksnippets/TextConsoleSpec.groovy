@@ -42,6 +42,14 @@ class TextConsoleSpec extends Specification {
             1 * game.combine(new Element("first"), new Element("second"))
     }
 
+    def "on text console, command for combining unavailable element should not call Game.combine"() {
+        when:
+            game.availableElements() >> [new Element("available")]
+            console.eval("combine available with unavailable")
+        then:
+            0 * game.combine(_, _)
+    }
+
     def "on text console, list command prints available elements"() {
         when:
             game.availableElements() >> [new Element("first"), new Element("second"), new Element("third")]
