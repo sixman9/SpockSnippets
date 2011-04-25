@@ -17,13 +17,19 @@ package com.vxcompany.spocksnippets;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
+import java.io.PrintStream;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import static com.vxcompany.spocksnippets.TestUtil.*;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.AdditionalMatchers.and;
+import static org.mockito.AdditionalMatchers.find;
+import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -34,11 +40,13 @@ public class TextConsoleTest {
 
     private TextConsole console;
     private Game game;
+    private PrintStream output;
 
     @Before
     public void setUp() {
         game = mock(Game.class);
-        console = new TextConsole(game);
+        output = mock(PrintStream.class);
+        console = new TextConsole(game, output);
     }
 
     @Test
@@ -46,5 +54,17 @@ public class TextConsoleTest {
         game.setAvailableElements(createSet(new Element("first"), new Element("second")));
         console.eval("combine first with second");
         verify(game).combine(new Element("first"), new Element("second"));
+    }
+
+    @Test
+    public void textConsole_listCommand_printAvailableElements() {
+        game.setAvailableElements(createSet(new Element("first"), new Element("second"), new Element("third")));
+        console.eval("list");
+        // for easier test cases we could use argument matchers, but because we have to check
+        // three boolean expressions on the argument, we have to use the more complicated ArgumentCaptor
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(output).println(captor.capture());
+        String text = captor.getValue();
+        assertTrue("list command should print available elements", text.contains("first") && text.contains("second") && text.contains("third"));
     }
 }

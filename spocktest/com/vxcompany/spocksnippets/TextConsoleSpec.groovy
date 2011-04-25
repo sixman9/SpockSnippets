@@ -26,10 +26,12 @@ class TextConsoleSpec extends Specification {
 
     def console
     def game
+    def output
 
     def setup() {
         game = Mock(Game)
-        console = new TextConsole(game)
+        output = Mock(PrintStream)
+        console = new TextConsole(game, output)
     }
 
     def "on text console, command for combining two available elements should call Game.combine"() {
@@ -40,6 +42,12 @@ class TextConsoleSpec extends Specification {
             1 * game.combine(new Element("first"), new Element("second"))
     }
 
-
+    def "on text console, list command prints available elements"() {
+        when:
+            game.availableElements() >> [new Element("first"), new Element("second"), new Element("third")]
+            console.eval("list")
+        then:
+            1 * output.println({ it.contains("first") && it.contains("second") && it.contains("third") })
+    }
 
 }

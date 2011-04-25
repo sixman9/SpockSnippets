@@ -16,6 +16,7 @@ package com.vxcompany.spocksnippets;
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
@@ -24,9 +25,11 @@ import java.io.PrintWriter;
 public class TextConsole {
 
     private Game game;
+    private PrintStream output;
 
-    public TextConsole(Game game) {
+    public TextConsole(Game game, PrintStream output) {
         this.game = game;
+        this.output = output;
     }
 
     public void eval(String userCommand) {
