@@ -17,7 +17,10 @@ package com.vxcompany.spocksnippets;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.PrintStream;
 import java.util.Collections;
@@ -36,16 +39,16 @@ import static org.mockito.Mockito.verify;
 /**
  * @author Michel Vollebregt
  */
+@RunWith(MockitoJUnitRunner.class)
 public class TextConsoleTest {
 
     private TextConsole console;
-    private Game game;
-    private PrintStream output;
+
+    @Mock private Game game;
+    @Mock private PrintStream output;
 
     @Before
     public void setUp() {
-        game = mock(Game.class);
-        output = mock(PrintStream.class);
         console = new TextConsole(game, output);
     }
 
