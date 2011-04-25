@@ -15,6 +15,7 @@ package com.vxcompany.spocksnippets;
 // You should have received a copy of the GNU General Public License
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -29,6 +30,17 @@ import static org.mockito.Mockito.*;
  */
 public class GameTest {
 
+    private ElementsRepository repo;
+
+    private Element earth = new Element("earth");
+    private Element fire = new Element("fire");
+    private Element lava = new Element("lava");
+
+    @Before
+    public void setUp() {
+        repo = mock(ElementsRepository.class);
+    }
+
     private <T> Set<T> createSet(T... elements) {
         Set<T> set = new HashSet<T>();
         Collections.addAll(set, elements);
@@ -40,8 +52,6 @@ public class GameTest {
 
         // setup
         Set<Element> BASIC_ELEMENTS = createSet(new Element("first basic element"), new Element("second basic element"));
-
-        ElementsRepository repo = mock(ElementsRepository.class);
         when(repo.listBasicElements()).thenReturn(BASIC_ELEMENTS);
 
         // call function
@@ -56,11 +66,6 @@ public class GameTest {
     public void gameWithElements_combineTwoElements_newElementIsAdded() {
 
         // setup
-        ElementsRepository repo = mock(ElementsRepository.class);
-        Element earth = new Element("earth");
-        Element fire = new Element("fire");
-        Element lava = new Element("lava");
-
         Game game = new Game(repo);
         game.setAvailableElements(createSet(earth, fire));
         when(repo.getCombinedElement(earth, fire)).thenReturn(lava);
@@ -77,11 +82,6 @@ public class GameTest {
     public void gameWithElements_combineNonReactingElements_availableElementsUnchanged() {
 
         // setup
-        ElementsRepository repo = mock(ElementsRepository.class);
-        Element earth = new Element("earth");
-        Element fire = new Element("fire");
-        Element lava = new Element("lava");
-
         Game game = new Game(repo);
         game.setAvailableElements(createSet(earth, fire, lava));
         when(repo.getCombinedElement(lava, fire)).thenReturn(null);

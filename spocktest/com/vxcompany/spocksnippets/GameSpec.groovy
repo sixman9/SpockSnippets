@@ -22,12 +22,21 @@ import spock.lang.Specification
  *
  * @author Michel Vollebregt
  */
-class GameSpec extends Specification{
+class GameSpec extends Specification {
+
+    def repo;
+
+    def earth = new Element("earth");
+    def fire = new Element("fire");
+    def lava = new Element("lava");
+
+    def setup() {
+        repo = Mock(ElementsRepository)
+    }
 
     def "on new game, available elements should equal basic elements in repo"() {
         setup:
             def BASIC_ELEMENTS = [new Element("first basic element"), new Element("second basic element")] as Set
-            def repo = Mock(ElementsRepository)
             repo.listBasicElements() >> BASIC_ELEMENTS
         when:
             def game = new Game(repo)
@@ -37,11 +46,6 @@ class GameSpec extends Specification{
     }
 
     def "on game with elements, combining two elements makes another element available"() {
-        setup:
-            def repo = Mock(ElementsRepository)
-            def earth = new Element("earth");
-            def fire = new Element("fire");
-            def lava = new Element("lava");
         when:
             def game = new Game(repo)
             game.availableElements = [earth, fire]
@@ -54,11 +58,6 @@ class GameSpec extends Specification{
     }
 
     def "on game with elements, when combining two non-reacting elements then available elements are unchanged"() {
-        setup:
-            def repo = Mock(ElementsRepository)
-            def earth = new Element("earth")
-            def fire = new Element("fire")
-            def lava = new Element("lava")
         when:
             def game = new Game(repo)
             game.availableElements = [earth, fire, lava]
