@@ -15,33 +15,37 @@ package com.vxcompany.spocksnippets;
 // You should have received a copy of the GNU General Public License
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import static junit.framework.Assert.*;
-import static org.mockito.Mockito.*;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @author Michel Vollebregt
  */
-public class GameTest extends AbstractGameTest {
+@RunWith(Parameterized.class)
+public class GameCombiningUnavailableElementsTest extends AbstractGameTest {
 
-    @Test
-    public void newGame_availableElements_equalToBasicElementsInRepo() {
+    private Element available;
 
-        // setup
-        Set<Element> BASIC_ELEMENTS = createSet(new Element("first basic element"), new Element("second basic element"));
-        when(repo.listBasicElements()).thenReturn(BASIC_ELEMENTS);
+    public GameCombiningUnavailableElementsTest(Element available) {
+        this.available = available;
+    }
 
-        // call function
+    @Test(expected = Exception.class)
+    public void game_combineUnavailableElement_exceptionThrown() {
         Game game = new Game(repo);
-        Set<Element> availableElements = game.availableElements();
+        game.setAvailableElements(createSet(available));
+        // call function
+        game.combine(earth, fire);
+    }
 
-        // assert
-        assertEquals("new game should contain basic elements returned by repository", BASIC_ELEMENTS, availableElements);
+    @Parameters
+    public static Collection<Object[]> parameters() {
+        Object[][] parameters = new Object[][] {{earth}, {fire}};
+        return Arrays.asList(parameters);
     }
 }

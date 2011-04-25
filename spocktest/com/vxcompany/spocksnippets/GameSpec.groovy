@@ -26,9 +26,9 @@ class GameSpec extends Specification {
 
     def repo;
 
-    def earth = new Element("earth");
-    def fire = new Element("fire");
-    def lava = new Element("lava");
+    static earth = new Element("earth");
+    static fire = new Element("fire");
+    static lava = new Element("lava");
 
     def setup() {
         repo = Mock(ElementsRepository)
@@ -45,40 +45,38 @@ class GameSpec extends Specification {
             game.availableElements() == BASIC_ELEMENTS;
     }
 
-    def "on game with elements, combining two elements makes another element available"() {
+    def "game must combine elements correctly"() {
         when:
             def game = new Game(repo)
-            game.availableElements = [earth, fire]
+            game.availableElements = initial
         and:
-            repo.getCombinedElement(earth, fire) >> lava
+            repo.getCombinedElement(first, second) >> combined
+        and:
+            try {
+                game.combine(first, second)
+            } catch (Exception e) {}
+        then:
+            game.availableElements() == result as Set
+        where:
+            // note: we may not use instance variables earth, fire and lava within a where block
+            // we must make them static. in the version of spock I used I did not get a proper error message, though
+            // they claim the error does occur in the latest version of Spock
+            initial             | first | second | combined | result
+            [earth, fire]       | earth | fire   | lava     | [earth, fire, lava]
+            [earth, fire, lava] | lava  | fire   | null     | [earth, fire, lava]
+            [earth]             | earth | fire   | lava     | [earth]
+            [fire]              | earth | fire   | lava     | [fire]
+    }
+
+    def "on game, when combining unavailable element then exception is thrown"() {
+        when:
+            def game = new Game(repo)
+            game.availableElements = [available]
         and:
             game.combine(earth, fire)
         then:
-            game.availableElements() == [earth, fire, lava] as Set
-    }
-
-    def "on game with elements, when combining two non-reacting elements then available elements are unchanged"() {
-        when:
-            def game = new Game(repo)
-            game.availableElements = [earth, fire, lava]
-        and:
-            repo.getCombinedElement(lava, fire) >> null
-        and:
-            game.combine(lava, fire)
-        then:
-            game.availableElements() == [earth, fire, lava] as Set
-    }
-
-    def "on game, when combining unavailable element then available elements are unchanged and exception is thrown"() {
-        when:
-            def game = new Game(repo)
-            game.availableElements = [earth]
-        and:
-            repo.getCombinedElement(earth, fire) >> lava
-        and:
-            game.combine(earth, fire)
-        then:
-            game.availableElements() == [earth] as Set
             thrown(Exception)
+        where:
+            available << [earth, fire]
     }
 }

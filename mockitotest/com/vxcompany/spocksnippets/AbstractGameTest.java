@@ -16,32 +16,33 @@ package com.vxcompany.spocksnippets;
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static junit.framework.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author Michel Vollebregt
  */
-public class GameTest extends AbstractGameTest {
+public class AbstractGameTest {
 
-    @Test
-    public void newGame_availableElements_equalToBasicElementsInRepo() {
+    protected ElementsRepository repo;
 
-        // setup
-        Set<Element> BASIC_ELEMENTS = createSet(new Element("first basic element"), new Element("second basic element"));
-        when(repo.listBasicElements()).thenReturn(BASIC_ELEMENTS);
+    protected static Element earth = new Element("earth");
+    protected static Element fire = new Element("fire");
+    protected static Element lava = new Element("lava");
 
-        // call function
-        Game game = new Game(repo);
-        Set<Element> availableElements = game.availableElements();
-
-        // assert
-        assertEquals("new game should contain basic elements returned by repository", BASIC_ELEMENTS, availableElements);
+    @Before
+    public void setUp() {
+        repo = mock(ElementsRepository.class);
     }
+
+    protected static <T> Set<T> createSet(T... elements) {
+        Set<T> set = new HashSet<T>();
+        Collections.addAll(set, elements);
+        return set;
+    }
+
 }
