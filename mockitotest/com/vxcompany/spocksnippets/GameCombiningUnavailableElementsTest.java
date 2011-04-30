@@ -38,7 +38,7 @@ public class GameCombiningUnavailableElementsTest extends AbstractGameTest {
     }
 
     @Test(expected = Exception.class)
-    public void game_combineUnavailableElement_exceptionThrown() {
+    public void game_combineUnavailableElement_exceptionThrown() throws Exception {
         Game game = new Game(repo);
         game.setAvailableElements(createSet(available));
         // call function

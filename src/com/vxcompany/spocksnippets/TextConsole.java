@@ -18,6 +18,7 @@ package com.vxcompany.spocksnippets;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 /**
  * @author Michel Vollebregt
@@ -32,7 +33,7 @@ public class TextConsole {
         this.output = output;
     }
 
-    public void eval(String userCommand) {
+    public void eval(String userCommand) throws SQLException {
         if ("list".equals(userCommand)) {
             output.println(game.availableElements().toString());
         } else {

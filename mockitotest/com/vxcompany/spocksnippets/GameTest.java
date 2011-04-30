@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 public class GameTest extends AbstractGameTest {
 
     @Test
-    public void newGame_availableElements_equalToBasicElementsInRepo() {
+    public void newGame_availableElements_equalToBasicElementsInRepo() throws Exception {
 
         // setup
         Set<Element> BASIC_ELEMENTS = createSet(new Element("first basic element"), new Element("second basic element"));

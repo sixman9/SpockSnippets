@@ -49,7 +49,7 @@ public class GameCombiningElementsTest extends AbstractGameTest {
     }
 
     @Test
-    public void game_combineElements_correctResult() {
+    public void game_combineElements_correctResult() throws Exception {
 
         // setup
         Game game = new Game(repo);

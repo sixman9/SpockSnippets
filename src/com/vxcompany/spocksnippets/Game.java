@@ -15,6 +15,7 @@ package com.vxcompany.spocksnippets;
 // You should have received a copy of the GNU General Public License
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class Game {
     private ElementsRepository repository;
     private Set<Element> elements;
 
-    public Game(ElementsRepository repo) {
+    public Game(ElementsRepository repo) throws SQLException {
         this.repository = repo;
         elements = repository.listBasicElements();
     }
@@ -39,7 +40,7 @@ public class Game {
         this.elements = elements;
     }
 
-    public void combine(Element first, Element second) {
+    public void combine(Element first, Element second) throws SQLException {
         if (!elements.contains(first) || !elements.contains(second)) {
             throw new IllegalStateException("element is not available");
         }

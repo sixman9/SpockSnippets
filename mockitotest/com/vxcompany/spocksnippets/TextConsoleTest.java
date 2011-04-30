@@ -23,6 +23,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,21 +50,21 @@ public class TextConsoleTest {
     }
 
     @Test
-    public void textConsole_commandForCombiningTwoAvailableElements_callGameCombine() {
+    public void textConsole_commandForCombiningTwoAvailableElements_callGameCombine() throws SQLException {
         when(game.availableElements()).thenReturn(createSet(new Element("first"), new Element("second")));
         console.eval("combine first with second");
         verify(game).combine(new Element("first"), new Element("second"));
     }
 
     @Test
-    public void textConsole_commandForCombiningUnavailableElement_doNotCallGameCombine() {
+    public void textConsole_commandForCombiningUnavailableElement_doNotCallGameCombine() throws SQLException {
         when(game.availableElements()).thenReturn(createSet(new Element("available")));
         console.eval("combine available with unavailable");
         verify(game, never()).combine(any(Element.class), any(Element.class));
     }
 
     @Test
-    public void textConsole_listCommand_printAvailableElements() {
+    public void textConsole_listCommand_printAvailableElements() throws SQLException {
         when(game.availableElements()).thenReturn(createSet(new Element("first"), new Element("second"), new Element("third")));
         console.eval("list");
         // for easier test cases we could use argument matchers, but because we have to check
