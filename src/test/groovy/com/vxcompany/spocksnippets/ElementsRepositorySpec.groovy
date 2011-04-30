@@ -73,7 +73,7 @@ class ElementsRepositorySpec extends Specification {
     def setupSpec() {
         database = Sql.newInstance("jdbc:hsqldb:mem:testdb", "org.hsqldb.jdbcDriver")
         database.connection.autoCommit = false
-        database.execute("create table elements (id int, name nvarchar(40), is_basic bit)")
+        database.execute("create table elements (id int, name varchar(40), is_basic bit)")
         database.execute("create table combinations (first int, second int, result int)")
     }
 
