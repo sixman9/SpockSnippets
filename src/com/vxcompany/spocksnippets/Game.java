@@ -40,7 +40,7 @@ public class Game {
         this.elements = elements;
     }
 
-    public void combine(Element first, Element second) throws SQLException {
+    public Element combine(Element first, Element second) throws SQLException {
         if (!elements.contains(first) || !elements.contains(second)) {
             throw new IllegalStateException("element is not available");
         }
@@ -48,5 +48,6 @@ public class Game {
         if (foundElement != null) {
             elements.add(repository.getCombinedElement(first, second));
         }
+        return foundElement;
     }
 }

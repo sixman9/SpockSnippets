@@ -37,8 +37,8 @@ class IntegrationSpec extends Specification {
         when: "the user types the following commands"
             console.eval("combine JavaMagazine with VXCompany")
             console.eval("list")
-        then: "the output must contain the word Alchemy"
-            1 * output.println({ it.contains("Alchemy") })
+        then: "the output must contain the word Alchemy at least once"
+            (1.._) * output.println({ it.contains("Alchemy") })
     }
 
 }

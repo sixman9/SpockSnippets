@@ -41,7 +41,15 @@ public class TextConsole {
             Element first = new Element(words[1]);
             Element second = new Element(words[3]);
             if (game.availableElements().contains(first) && game.availableElements().contains(second)) {
-                game.combine(new Element(words[1]), new Element(words[3]));
+                Element result = game.combine(new Element(words[1]), new Element(words[3]));
+                if (result != null) {
+                    output.println("You created " + result + "!");
+                } else {
+                    output.println("Sorry, no result");
+                }
+            }
+            else {
+                output.println("The elements you specified are not available.");
             }
         }
     }
