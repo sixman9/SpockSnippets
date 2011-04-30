@@ -52,9 +52,11 @@ public class ElementsRepository {
         Integer secondId = idSet.next() ? idSet.getInt("id") : null;
         idSet.close();
         stmt.close();
-        stmt = connection.prepareStatement("select name from combinations c inner join elements e on e.id = c.result where c.first = ? and c.second = ?");
+        stmt = connection.prepareStatement("select name from combinations c inner join elements e on e.id = c.result where (c.first = ? and c.second = ?) or (c.first = ? and c.second = ?)");
         stmt.setInt(1, firstId);
         stmt.setInt(2, secondId);
+        stmt.setInt(3, secondId);
+        stmt.setInt(4, firstId);
         ResultSet nameSet = stmt.executeQuery();
         if (nameSet.next()) result = new Element(nameSet.getString("name"));
         nameSet.close();
