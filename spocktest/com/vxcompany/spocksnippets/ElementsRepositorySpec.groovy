@@ -40,13 +40,25 @@ class ElementsRepositorySpec extends Specification {
             repo.listBasicElements() == [new Element("basic element 1"), new Element("basic element 2")] as Set
     }
 
+    def insertFirstSecondAndCombination() {
+        def insert = "insert into elements (id, name) values (?, ?)"
+        database.execute insert, [1, "first element"]
+        database.execute insert, [2, "second element"]
+        database.execute insert, [3, "combined element"]
+    }
+
     def "on repository, combining two elements returns combined element"() {
         setup:
-            def insert = "insert into elements (id, name) values (?, ?)"
-            database.execute insert, [1, "first element"]
-            database.execute insert, [2, "second element"]
-            database.execute insert, [3, "combined element"]
+            insertFirstSecondAndCombination();
             database.execute "insert into combinations (first, second, result) values (1, 2, 3)"
+        expect:
+            repo.getCombinedElement(new Element("first element"), new Element("second element")) == new Element("combined element")
+    }
+
+    def "on repository, combining two elements in reverse still returns combined element"() {
+        setup:
+            insertFirstSecondAndCombination();
+            database.execute "insert into combinations (first, second, result) values (2, 1, 3)"
         expect:
             repo.getCombinedElement(new Element("first element"), new Element("second element")) == new Element("combined element")
     }
