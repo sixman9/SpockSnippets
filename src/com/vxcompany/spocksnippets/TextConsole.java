@@ -52,4 +52,19 @@ public class TextConsole {
         Game game = new Game(repo);
         return new TextConsole(game, System.out);
     }
+
+    public static void main(String[] args) throws SQLException, IOException {
+        TextConsole console = TextConsole.create();
+        console.output.println("Welcome to Alchemy.");
+        console.output.println("Type 'list' to get a list of available elements.");
+        console.output.println("Type 'combine A with B' to combine element A with B.");
+        console.output.println("Type 'exit' to exit.");
+        console.output.println("Available elements at startup are: " + console.game.availableElements());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String input = reader.readLine();
+        while (!input.equals("exit")) {
+            console.eval(input);
+            input = reader.readLine();
+        }
+    }
 }
