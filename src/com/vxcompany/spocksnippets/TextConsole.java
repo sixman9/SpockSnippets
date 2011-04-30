@@ -15,9 +15,9 @@ package com.vxcompany.spocksnippets;
 // You should have received a copy of the GNU General Public License
 // along with SpockSnippets.  If not, see <http://www.gnu.org/licenses/>.
 
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
@@ -44,5 +44,12 @@ public class TextConsole {
                 game.combine(new Element(words[1]), new Element(words[3]));
             }
         }
+    }
+
+    public static TextConsole create() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:hsqldb:file:elementsdb", "SA", "");
+        ElementsRepository repo = new ElementsRepository(connection);
+        Game game = new Game(repo);
+        return new TextConsole(game, System.out);
     }
 }
