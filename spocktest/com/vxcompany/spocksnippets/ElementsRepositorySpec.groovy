@@ -63,6 +63,13 @@ class ElementsRepositorySpec extends Specification {
             repo.getCombinedElement(new Element("first element"), new Element("second element")) == new Element("combined element")
     }
 
+    def "on repository, combining two elements that do not have a result returns null"() {
+        setup:
+            insertFirstSecondAndCombination()
+        expect:
+            repo.getCombinedElement(new Element("first element"), new Element("second element")) == null;
+    }
+
     def setupSpec() {
         database = Sql.newInstance("jdbc:hsqldb:mem:testdb", "org.hsqldb.jdbcDriver")
         database.connection.autoCommit = false
