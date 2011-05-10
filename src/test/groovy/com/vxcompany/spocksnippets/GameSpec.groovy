@@ -77,6 +77,7 @@ class GameSpec extends Specification {
         then:
             thrown(Exception)
         where:
+            // syntax with << means: run test once with available == earth and once with available == fire
             available << [earth, fire]
     }
 }
