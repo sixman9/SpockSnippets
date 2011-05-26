@@ -1,4 +1,6 @@
 apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 group = 'com.vxcompany.spocksnippets'
 version = '1.0-SNAPSHOT'
