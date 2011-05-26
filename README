@@ -1,6 +1,6 @@
 Example code for article about Spock to be written for Java magazine
 
-To run:
+To run with Maven:
 
 1. Make sure you have Maven installed (http://maven.apache.org/download.html).
    The build was tested to work with Maven 3 and Java 1.6.
@@ -8,6 +8,16 @@ To run:
 2. Type > mvn install
 
 3. Type > java -jar target/SpockSnippets-*-jar-with-dependencies.jar
+
+To run with Gradle:
+
+1. Make sure you have Gradle installed (http://gradle.org).
+   The build was tested to work with Gradle 1.0 milestone 3 and Java 1.6.
+
+2. Type > gradle build
+
+3. Type > java -jar build/libs/SpockSnippets-*.jar
+
 
 Have fun!
 
