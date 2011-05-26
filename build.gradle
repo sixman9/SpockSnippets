@@ -1,1 +1,22 @@
-apply plugin: 'java'
+apply plugin: 'groovy'
+
+group = 'com.vxcompany.spocksnippets'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    grooyv 'org.codehaus.groovy:groovy:1.7.10'
+    testCompile 'org.spockframework:spock-core:0.4-groovy-1.7',
+                'junit:junit:4.8.2',
+                'org.mockito:mockito-core:1.8.5'
+    compile 'org.hsqldb:hsqldb:2.0.0'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.vxcompany.spocksnippets.TextConsole'
+    }
+}
